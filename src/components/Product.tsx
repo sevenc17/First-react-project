@@ -1,6 +1,6 @@
 
 import { stringify } from 'querystring';
-import React, {createElement as e} from 'react'
+import React, { useState } from 'react'
 import { json } from 'stream/consumers'
 import {IProduct} from '../models'
 
@@ -9,11 +9,25 @@ interface ProductProps {
 }
 
 export function Product(props: ProductProps) {
+
+    const [details, setDetails] = useState(false)
+
     return (
-        e('div', {className: "product"}, [
-            e('img', {src: props.product.image, alt: '#', key: 1}),
-            e('h2', {className: 'product-title', key: 2}, props.product.title),
-            e('p', {className: 'product-des', key: 3}, props.product.description)
-        ])
+        <div className='product'>
+            <img src={props.product.image} alt="#"></img>
+            <h2 className='product-title'>{props.product.title}</h2>
+            <button className='show-info' onClick={() => setDetails(prev => !prev)}>{details ? 'Close info' : 'Show info'}</button>
+            {details && <div>
+                <p className='product-info'>{props.product.description}</p>
+            </div>}
+        </div>
     )
 }
+
+// function showInfo(event: any) {
+//     for(let i of [...event.target.parentNode.childNodes]){
+//         if(i.classList.contains('product-info')){
+//             i.classList.toggle('active')
+//         }
+//     }
+// }
