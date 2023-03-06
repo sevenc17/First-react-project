@@ -64,6 +64,10 @@ a, a:visited {
   cursor: pointer;
 }
 
+.show-info.open-info {
+  background-color: #354077;
+}
+
 /* .active {
   display: block;
 } */

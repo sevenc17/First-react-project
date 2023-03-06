@@ -1,28 +1,20 @@
-import React, {createElement as e, useEffect, useState} from 'react';
+
 import {Product} from './components/Product'
-import { products } from './components/data/products';
 import {Header} from './components/header'
-import axios from 'axios';
-import { IProduct } from './models';
+import { useProducts } from './hooks/products'
+import {Errors} from './components/errors'
+import { Loader } from './components/loader'
 
 function App() {
-
-  const [products, setProducts] = useState<IProduct[]>([])
-
-  async function fetchProducts() {
-    const response = await axios.get<IProduct[]>('https://fakestoreapi.com/products?limit=5')
-    setProducts(response.data)
-  }
-
-  useEffect(() => {
-    fetchProducts()
-  }, [])
+  
+  const {loading, error, products} = useProducts()
 
   return (
     <div className='wrapper'>
       <Header />
       <div className='products'>
-
+        {loading && <Loader/>}
+        {error && <Errors error={error} />}
         {products.map(product => <Product product={product} key={product.id}/>)}
 
         {/*Динамическое создание компонентов, синтаксис записи цикла в tsx*/}

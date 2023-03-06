@@ -11,12 +11,14 @@ interface ProductProps {
 export function Product(props: ProductProps) {
 
     const [details, setDetails] = useState(false)
+    const btnBgcStyles = details ? 'show-info open-info' : 'show-info'
+
 
     return (
         <div className='product'>
             <img src={props.product.image} alt="#"></img>
             <h2 className='product-title'>{props.product.title}</h2>
-            <button className='show-info' onClick={() => setDetails(prev => !prev)}>{details ? 'Close info' : 'Show info'}</button>
+            <button className={btnBgcStyles} onClick={() => setDetails(!details)}>{details ? 'Close info' : 'Show info'}</button>
             {details && <div>
                 <p className='product-info'>{props.product.description}</p>
             </div>}
